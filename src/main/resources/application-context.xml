@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="loginService" class="ua.goit.offline.login_service.services.LoginServiceImpl">
+        <property name="usersCache" ref="userCache"/>
+        <property name="authenticator" ref="auth"/>
+    </bean>
+
+    <bean id="auth" class="ua.goit.offline.login_service.services.SimpleAuthenticator"/>
+    <bean id="userService" class="ua.goit.offline.login_service.services.UserService"/>
+
+    <bean id="cache" class="java.util.concurrent.ConcurrentHashMap" scope="prototype"/>
+    <bean id="userCache" class="ua.goit.offline.login_service.services.UsersCacheImpl">
+        <property name="service" ref="userService"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+</beans>
